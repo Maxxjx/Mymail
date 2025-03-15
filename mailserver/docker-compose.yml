@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  mailserver:
+    image: ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: mailserver
+    hostname: mail.mymail.local  # Update with your mail server FQDN
+    domainname: mymail.local
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - ./docker-data/mail-data/:/var/mail/
+      - ./docker-data/mail-state/:/var/mail-state/
+      - ./docker-data/mail-logs/:/var/log/mail/
+      - ./docker-data/config/:/tmp/docker-mailserver/
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - ENABLE_RSPAMD=1
+      - ENABLE_FAIL2BAN=1
+      - PERMIT_DOCKER=network
+      - SSL_TYPE=manual
+      - SSL_CERT_PATH=/tmp/ssl/fullchain.pem
+      - SSL_KEY_PATH=/tmp/ssl/privkey.pem
+    cap_add:
+      - NET_ADMIN
+    restart: always
