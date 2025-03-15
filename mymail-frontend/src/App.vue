@@ -1,12 +1,12 @@
 <template>
   <div class="min-h-screen bg-gray-50 flex flex-col items-center p-4">
-    <h1 class="text-4xl font-bold mb-6 text-blue-700">Mymail</h1>
+    <h1 class="text-5xl font-extrabold mb-8 text-blue-800">Mymail</h1>
 
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md transition-shadow duration-300 hover:shadow-xl">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md transition-shadow duration-300 hover:shadow-2xl">
       <h2 class="text-xl font-semibold mb-3">Your Temporary Email</h2>
       <div class="flex items-center justify-between bg-gray-100 p-4 rounded-lg">
         <span class="text-gray-800">{{ tempEmail }}</span>
-        <button @click="copyEmail" class="bg-blue-600 text-white px-4 py-2 rounded transition-colors duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button @click="copyEmail" class="bg-blue-700 text-white px-5 py-3 rounded-lg transition-colors duration-200 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600">
           Copy
         </button>
       </div>
@@ -15,14 +15,15 @@
 
     <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mt-6">
       <h2 class="text-xl font-semibold mb-3">Inbox</h2>
-      <div v-if="isLoading" class="text-gray-500 text-center">
+      <div v-if="isLoading" class="flex items-center justify-center text-gray-500 text-center">
+  <svg class="animate-spin h-5 w-5 mr-3 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8-8-3.582-8-8z"></path></svg>
         <span>Loading emails...</span>
       </div>
       <div v-else-if="emails.length === 0" class="text-gray-500 text-center">
         <span>No new emails</span>
       </div>
       <ul v-else class="divide-y divide-gray-200">
-        <li
+        <li class="p-3 hover:bg-gray-100 cursor-pointer transition-colors duration-200 rounded-lg"
           v-for="email in emails"
           :key="email.id"
           class="p-3 hover:bg-gray-100 cursor-pointer transition-colors duration-200"
